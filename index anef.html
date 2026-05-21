@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Como desbloquear seu dossier ANEF — Passo a passo completo</title>
+  <meta name="description" content="Em 5 de maio de 2026, o Conseil d'État condenou o Estado francês pelos bloqueios da ANEF. Veja os 4 níveis de recurso que você pode usar agora." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================
+       VARIÁVEIS & RESET
+    ========================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f7f6f3;
+      --surface:      #ffffff;
+      --navy:         #1a2e4a;
+      --navy-mid:     #2d4a6e;
+      --navy-light:   #e8eef5;
+      --olive:        #4d6e3f;
+      --olive-light:  #eef4ea;
+      --amber:        #b45309;
+      --amber-light:  #fef3c7;
+      --red:          #991b1b;
+      --red-light:    #fee2e2;
+      --border:       #dde3eb;
+      --text:         #1f2937;
+      --muted:        #6b7280;
+      --radius:       14px;
+      --radius-sm:    8px;
+      --shadow:       0 2px 16px rgba(26,46,74,0.09);
+      --shadow-lg:    0 8px 40px rgba(26,46,74,0.14);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ==========================================
+       UTILITÁRIOS
+    ========================================== */
+    .wrapper { max-width: 700px; margin: 0 auto; padding: 0 20px; }
+
+    a { color: var(--navy-mid); }
+    a:hover { color: var(--olive); }
+
+    strong { font-weight: 600; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .tag-green  { background: var(--olive-light); color: var(--olive); }
+    .tag-blue   { background: var(--navy-light);  color: var(--navy); }
+    .tag-amber  { background: var(--amber-light); color: var(--amber); }
+    .tag-red    { background: var(--red-light);   color: var(--red); }
+
+    /* ==========================================
+       BARRA SUPERIOR — ALERTA
+    ========================================== */
+    .alert-bar {
+      background: var(--navy);
+      color: #fff;
+      text-align: center;
+      padding: 11px 20px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .alert-bar span { opacity: 0.7; }
+
+    /* ==========================================
+       HEADER
+    ========================================== */
+    header {
+      background: var(--surface);
+      padding: 44px 20px 36px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    header h1 em {
+      font-style: normal;
+      color: var(--olive);
+    }
+
+    .header-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 20px;
+    }
+
+    .header-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .author-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================
+       SEÇÃO GENÉRICA
+    ========================================== */
+    .section {
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .section-lead {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    /* ==========================================
+       CARD DE CONTEXTO — DECISÃO JUDICIAL
+    ========================================== */
+    .decision-card {
+      background: var(--navy);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .decision-card .dc-date {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 10px;
+    }
+
+    .decision-card h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+
+    .decision-card p {
+      font-size: 0.93rem;
+      opacity: 0.88;
+      margin-bottom: 10px;
+    }
+    .decision-card p:last-child { margin-bottom: 0; }
+
+    .decision-card .dc-stat {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-top: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    /* ==========================================
+       CARD DE AVISO IMPORTANTE
+    ========================================== */
+    .warning-card {
+      background: var(--amber-light);
+      border: 1.5px solid #fcd34d;
+      border-left: 4px solid var(--amber);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      font-size: 0.9rem;
+      margin: 20px 0;
+    }
+
+    .warning-card strong { color: var(--amber); }
+
+    /* ==========================================
+       CARD DE INFO / REFERÊNCIA LEGAL
+    ========================================== */
+    .info-card {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--navy);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      font-size: 0.88rem;
+      margin: 20px 0;
+    }
+    .info-card a { font-weight: 600; }
+
+    /* ==========================================
+       NÍVEIS DE RECURSO
+    ========================================== */
+    .level-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .level-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .level-number {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+    }
+    .lvl1 .level-number { background: #2e7d32; }
+    .lvl2 .level-number { background: var(--navy-mid); }
+    .lvl3 .level-number { background: var(--amber); }
+    .lvl4 .level-number { background: var(--red); }
+
+    .level-header-text { flex: 1; }
+
+    .level-header-text h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .level-header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .level-toggle {
+      font-size: 1.1rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    .level-body {
+      padding: 24px;
+      display: block; /* aberto por padrão */
+    }
+
+    .level-body p {
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+    }
+
+    /* Passos numerados dentro do nível */
+    .steps-list {
+      counter-reset: step-counter;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      flex-shrink: 0;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--navy-light);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.78rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+
+    .step-content { flex: 1; }
+    .step-content strong { display: block; margin-bottom: 3px; color: var(--navy); }
+    .step-content p { font-size: 0.9rem; color: var(--text); margin: 0; }
+    .step-content a { font-weight: 600; font-size: 0.9rem; }
+
+    /* Modelo de texto copiável */
+    .template-box {
+      background: #f9fafb;
+      border: 1px dashed #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      margin: 16px 0;
+      position: relative;
+    }
+
+    .template-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .template-box pre {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 7px 14px;
+      background: var(--navy-light);
+      color: var(--navy);
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.15s ease;
+    }
+    .copy-btn:hover { background: #d1dbe8; }
+    .copy-btn.copied { background: var(--olive-light); color: var(--olive); }
+
+    /* Link de ação primário */
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      background: var(--navy);
+      color: #fff !important;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 10px 0;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .action-link:hover { background: var(--navy-mid); transform: translateY(-1px); color: #fff !important; }
+
+    .action-link-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--navy) !important;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 6px 0;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .action-link-secondary:hover { border-color: var(--navy); background: var(--navy-light); }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    /* ==========================================
+       LINHA DO TEMPO — PRAZOS
+    ========================================== */
+    .timeline {
+      border-left: 3px solid var(--border);
+      margin: 20px 0;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .tl-item {
+      position: relative;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -26px; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--navy-mid);
+      border: 2px solid var(--surface);
+    }
+
+    .tl-item.tl-alert::before { background: var(--amber); }
+    .tl-item.tl-danger::before { background: var(--red); }
+
+    .tl-time {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .tl-desc { font-size: 0.92rem; }
+
+    /* ==========================================
+       SEÇÃO: O QUE A ANEF PRECISA CORRIGIR
+    ========================================== */
+    .corrections-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 520px) {
+      .corrections-grid { grid-template-columns: 1fr; }
+    }
+
+    .correction-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+
+    .correction-item .ci-icon { font-size: 1.3rem; margin-bottom: 6px; }
+    .correction-item .ci-title { font-size: 0.88rem; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .correction-item .ci-desc { font-size: 0.82rem; color: var(--muted); }
+
+    /* ==========================================
+       FORMULÁRIO DE CAPTURA
+    ========================================== */
+    .form-section {
+      background: var(--navy);
+      padding: 48px 0;
+    }
+
+    .form-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      color: #fff;
+    }
+
+    @media (max-width: 480px) {
+      .form-card { padding: 24px 20px; }
+    }
+
+    .form-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 10px;
+    }
+
+    .form-card h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .form-card .form-sub {
+      font-size: 0.9rem;
+      opacity: 0.75;
+      margin-bottom: 28px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .form-group { margin-bottom: 14px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      opacity: 0.8;
+      margin-bottom: 7px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 0.97rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .form-group input::placeholder { color: rgba(255,255,255,0.35); }
+    .form-group input:focus { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.12); }
+    .form-group.has-error input { border-color: #f87171; }
+    .error-msg { font-size: 0.78rem; color: #fca5a5; margin-top: 5px; display: none; }
+    .form-group.has-error .error-msg { display: block; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px 20px;
+      margin-top: 6px;
+      background: var(--olive);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-submit:hover  { background: #3e5c33; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    .form-disclaimer {
+      font-size: 0.76rem;
+      opacity: 0.5;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* Confirmação */
+    #confirmation { display: none; text-align: center; padding: 28px 0; }
+    #confirmation .check-icon { font-size: 3rem; margin-bottom: 14px; }
+    #confirmation h3 { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    #confirmation p { font-size: 0.9rem; opacity: 0.75; }
+
+    /* ==========================================
+       RODAPÉ
+    ========================================== */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .footer-brand { font-weight: 700; color: var(--navy); font-size: 0.95rem; }
+    .footer-links { margin-top: 8px; font-size: 0.82rem; color: var(--muted); }
+    .footer-links a { color: var(--olive); text-decoration: none; font-weight: 600; }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-sep { margin: 0 8px; opacity: 0.4; }
+    .footer-disclaimer {
+      font-size: 0.76rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 12px auto 0;
+      line-height: 1.5;
+    }
+
+    /* ==========================================
+       BARRA DE PROGRESSO NO TOPO (SCROLL)
+    ========================================== */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: var(--olive);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s ease;
+    }
+
+    /* ==========================================
+       RESPONSIVIDADE
+    ========================================== */
+    @media (max-width: 480px) {
+      header { padding: 32px 16px 28px; }
+      .level-header { padding: 16px 18px; }
+      .level-body { padding: 18px; }
+      .decision-card { padding: 22px 18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Barra de progresso de leitura -->
+  <div id="progress-bar"></div>
+
+  <!-- ==========================================
+       BARRA SUPERIOR
+  ========================================== -->
+  <div class="alert-bar">
+    🏛️ Conseil d'État — decisão de <strong>5 de maio de 2026</strong> &nbsp;·&nbsp;
+    <span>ANEF condenada por bloqueios sistemáticos de dossiers</span>
+  </div>
+
+  <!-- ==========================================
+       HEADER
+  ========================================== -->
+  <header>
+    <div class="wrapper">
+      <div class="header-eyebrow">
+        <span class="tag tag-green">Passo a passo completo</span>
+        <span class="tag tag-blue">Gratuito</span>
+        <span class="tag tag-amber">Atualizado em maio 2026</span>
+      </div>
+
+      <h1>Como desbloquear seu dossier <em>ANEF</em> agora — sem esperar 6 meses</h1>
+
+      <p class="header-sub">
+        A escada completa de recursos: do mais simples ao mais pesado, com links diretos,
+        modelos de mensagem e prazos que você precisa respeitar.
+      </p>
+
+      <div class="header-author">
+        <div class="author-dot">IL</div>
+        <div>
+          Por <strong>Ingryd Lotierzo</strong> · Canal <em>Por Dentro</em> ·
+          <a href="https://www.instagram.com/ingrydinparis/" target="_blank" rel="noopener">@ingrydinparis</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       CONTEÚDO PRINCIPAL
+  ========================================== -->
+  <main>
+    <div class="wrapper">
+
+      <!-- SEÇÃO 1: O QUE ACONTECEU -->
+      <section class="section">
+        <h2 class="section-title">O que aconteceu com a ANEF</h2>
+        <p class="section-lead">O contexto que justifica cada recurso abaixo</p>
+
+        <div class="decision-card">
+          <div class="dc-date">📋 Decisão oficial · 5 de maio de 2026</div>
+          <h2>O Conseil d'État condenou o Estado francês</h2>
+          <p>
+            O Conseil d'État — a mais alta instância administrativa da França — reconheceu
+            oficialmente que os atrasos e bloqueios sistemáticos da ANEF <strong>prejudicam
+            gravemente o direito ao séjour, ao trabalho e ao acesso às alocações sociais</strong>
+            de quem está aguardando renovação.
+          </p>
+          <p>
+            Mais de <strong>930 mil dossiers estão bloqueados</strong> nas prefeituras francesas.
+            Você não está sozinha — e a Justiça reconheceu isso.
+          </p>
+          <div class="dc-stat">
+            📌 +930.000 dossiers bloqueados · Decisão vinculante ao Estado francês
+          </div>
+        </div>
+
+        <p style="font-size:0.95rem; margin-bottom:14px;">
+          Desde 2021, os guichês das prefeituras foram fechados e tudo passou a ser feito
+          exclusivamente pela ANEF. Você envia o dossier, espera semanas, meses — o status
+          não muda, nenhuma resposta chega, o titre vence. E você fica tecnicamente irregular
+          mesmo tendo feito tudo certo, dentro do prazo.
+        </p>
+
+        <p style="font-size:0.95rem;">
+          A boa notícia: <strong>essa decisão judicial cria precedente direto</strong> para
+          os recursos abaixo. Tribunais e mediadores estão reconhecendo urgência
+          automática para casos de renovação bloqueada pela ANEF.
+        </p>
+
+        <div class="info-card">
+          🔗 Referência legal:
+          <a href="https://www.conseil-etat.fr/" target="_blank" rel="noopener">Conseil d'État</a>
+          — decisão de 5 de maio de 2026 sobre os atrasos sistemáticos da ANEF no tratamento
+          de dossiers de titre de séjour.
+        </div>
+
+        <!-- O QUE O ESTADO PRECISA CORRIGIR -->
+        <h3 style="font-size:1rem; font-weight:700; color:var(--navy); margin: 28px 0 8px;">
+          O que o Estado foi obrigado a corrigir
+        </h3>
+        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:16px;">
+          Dois prazos distintos foram impostos pela decisão:
+        </p>
+
+        <div class="corrections-grid">
+          <div class="correction-item">
+            <div class="ci-icon">⚡</div>
+            <div class="ci-title">Imediato — Attestation de prolongation</div>
+            <div class="ci-desc">
+              Entrega automática para quem está esperando renovação, sem precisar solicitá-la
+              separadamente. Você não pode ficar irregular por falha do sistema.
+            </div>
+          </div>
+          <div class="correction-item">
+            <div class="ci-icon">✏️</div>
+            <div class="ci-title">Imediato — Correção de erros no dossier</div>
+            <div class="ci-desc">
+              Você deve poder corrigir dados, atualizar endereço e adicionar documentos
+              a qualquer momento. O sistema não pode mais bloquear alterações.
+            </div>
+          </div>
+          <div class="correction-item">
+            <div class="ci-icon">📂</div>
+            <div class="ci-title">Em 12 meses — Pedidos simultâneos</div>
+            <div class="ci-desc">
+              O Estado tem 12 meses para permitir que você deposite várias demandas ao mesmo
+              tempo por motivos diferentes. Hoje o sistema bloqueia qualquer novo pedido se
+              já houver um aberto.
+            </div>
+          </div>
+          <div class="correction-item">
+            <div class="ci-icon">🏢</div>
+            <div class="ci-title">Em 12 meses — Acesso físico restaurado</div>
+            <div class="ci-desc">
+              Para casos bloqueados que não se resolvem online, as prefeituras deverão
+              retomar atendimento presencial como alternativa obrigatória.
+            </div>
+          </div>
+        </div>
+
+        <div class="warning-card">
+          <strong>⚠️ Atenção:</strong> Mesmo com a decisão, o sistema continua lento e muitos
+          dossiers continuam parados. Você não deve esperar que a mudança aconteça sozinha.
+          Use os recursos abaixo agora.
+        </div>
+      </section>
+
+      <!-- SEÇÃO 2: OS 4 NÍVEIS DE RECURSO -->
+      <section class="section">
+        <h2 class="section-title">Os 4 níveis de recurso — do mais simples ao mais pesado</h2>
+        <p class="section-lead">
+          Use nessa ordem. Cada nível cria evidência legal para o próximo.
+          Não pule etapas sem antes ter registro das tentativas anteriores.
+        </p>
+
+        <!-- ======== NÍVEL 1 ======== -->
+        <div class="level-block lvl1">
+          <div class="level-header">
+            <div class="level-number">1</div>
+            <div class="level-header-text">
+              <h3>Relance pela messagerie ANEF + e-mail para a prefeitura</h3>
+              <div class="level-header-meta">
+                <span class="tag tag-green">Gratuito</span>
+                <span class="tag tag-green">Sem advogado</span>
+                <span class="tag tag-blue">Primeiro passo obrigatório</span>
+              </div>
+            </div>
+          </div>
+          <div class="level-body">
+            <p>
+              Antes de qualquer recurso formal, você precisa criar <strong>rastro documental</strong>
+              das suas tentativas. O relance pela messagerie da ANEF e o e-mail para a prefeitura
+              servem para isso — e às vezes já são suficientes para desbloquear dossiers travados
+              por erro técnico ou fila interna.
+            </p>
+
+            <h4 style="font-size:0.92rem; font-weight:700; color:var(--navy); margin:18px 0 12px;">
+              Passo a passo:
+            </h4>
+
+            <ol class="steps-list">
+              <li>
+                <div class="step-content">
+                  <strong>Acesse sua conta na ANEF</strong>
+                  <p>
+                    Entre no site oficial e vá até a messagerie (caixa de mensagens) do
+                    seu dossier. Você vai usar o mesmo login do seu pedido.
+                  </p>
+                  <div class="link-row">
+                    <a class="action-link" href="https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" target="_blank" rel="noopener">
+                      → Acessar a ANEF
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Envie uma mensagem de relance pelo sistema</strong>
+                  <p>
+                    Na messagerie do seu dossier, envie a mensagem abaixo. Copie exatamente,
+                    substituindo o que está entre colchetes.
+                  </p>
+                  <div class="template-box">
+                    <div class="template-label">📋 Modelo — messagerie ANEF</div>
+                    <pre id="tpl-anef">Madame, Monsieur,
+
+Je me permets de vous contacter au sujet de ma demande de [renouvellement / première demande] de titre de séjour, référence numéro [NÚMERO DO SEU DOSSIER], déposée le [DATA DO DEPÓSITO].
+
+À ce jour, soit [NÚMERO] jours / mois après le dépôt de mon dossier, je n'ai reçu aucune réponse et le statut de ma demande n'a pas évolué.
+
+Cette situation me place dans une situation administrative précaire, m'empêchant de [travailler / renouveler mon contrat / voyager].
+
+Je vous demande de bien vouloir examiner ma demande dans les meilleurs délais et de m'informer de son avancement.
+
+Dans l'attente de votre retour,
+[SEU NOME]
+[DATA]</pre>
+                    <button class="copy-btn" onclick="copiarTexto('tpl-anef', this)">
+                      📋 Copiar mensagem
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Envie também um e-mail para a prefeitura responsável</strong>
+                  <p>
+                    Cada dossier é vinculado a uma prefeitura (a do departamento onde você
+                    reside). Encontre o e-mail do setor de étrangers no site da sua préfecture.
+                  </p>
+                  <div class="link-row">
+                    <a class="action-link-secondary" href="https://lannuaire.service-public.fr/navigation/prefecture" target="_blank" rel="noopener">
+                      → Encontrar minha préfecture
+                    </a>
+                  </div>
+                  <div class="template-box" style="margin-top:14px;">
+                    <div class="template-label">📋 Modelo — e-mail para a préfecture</div>
+                    <pre id="tpl-pref">Objet : Relance — Dossier de titre de séjour en attente — [SEU NOME]
+
+Madame, Monsieur,
+
+Je vous contacte concernant ma demande de [renouvellement / première demande] de titre de séjour déposée via la plateforme ANEF le [DATA], référence [NÚMERO].
+
+Malgré plusieurs semaines / mois d'attente, ma demande n'a reçu aucun traitement visible. Mon titre de séjour actuel est [valide jusqu'au / expiré depuis le] [DATA].
+
+Je vous rappelle que, conformément à la décision du Conseil d'État du 5 mai 2026, les délais excessifs de traitement constituent une atteinte grave aux droits des étrangers en situation régulière.
+
+Je sollicite un accusé de réception de ce message et une mise à jour sur l'état de traitement de mon dossier dans un délai raisonnable.
+
+Coordonnées :
+Nom complet : [SEU NOME]
+Date de naissance : [DATA DE NASCIMENTO]
+Nationalité : Brésilienne
+Adresse : [SEU ENDEREÇO COMPLETO]
+Téléphone : [SEU NÚMERO]
+
+Dans l'attente de votre retour,
+[SEU NOME]</pre>
+                    <button class="copy-btn" onclick="copiarTexto('tpl-pref', this)">
+                      📋 Copiar e-mail
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Guarde tudo com data</strong>
+                  <p>
+                    Faça print da tela da messagerie com o horário do envio. Salve o e-mail
+                    enviado e qualquer resposta recebida. Esses registros são prova para
+                    os recursos seguintes.
+                  </p>
+                </div>
+              </li>
+            </ol>
+
+            <div class="warning-card">
+              <strong>⏱️ Quanto esperar:</strong> Se depois de <strong>3 a 4 semanas</strong>
+              não houver nenhuma resposta ou movimentação no dossier, avance para o Nível 2.
+              Não espere mais do que isso.
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== NÍVEL 2 ======== -->
+        <div class="level-block lvl2">
+          <div class="level-header">
+            <div class="level-number">2</div>
+            <div class="level-header-text">
+              <h3>Saisine do Défenseur des Droits</h3>
+              <div class="level-header-meta">
+                <span class="tag tag-green">Gratuito</span>
+                <span class="tag tag-green">Sem advogado</span>
+                <span class="tag tag-blue">~60% de sucesso</span>
+              </div>
+            </div>
+          </div>
+          <div class="level-body">
+            <p>
+              O <strong>Défenseur des Droits</strong> é uma autoridade constitucional independente
+              do Estado francês — não é um tribunal, mas tem poder de <em>intermediar</em> e
+              pressionar a administração. É gratuito, não exige advogado, e tem sido
+              particularmente eficaz em casos de bloqueio da ANEF desde 2023.
+            </p>
+
+            <p>
+              A saisine pode ser feita 100% online em menos de 20 minutos. Você descreve
+              o problema, anexa documentos e o Défenseur entra em contato com a prefeitura
+              em seu nome. Em muitos casos, isso resolve sem precisar ir ao tribunal.
+            </p>
+
+            <h4 style="font-size:0.92rem; font-weight:700; color:var(--navy); margin:18px 0 12px;">
+              Passo a passo:
+            </h4>
+
+            <ol class="steps-list">
+              <li>
+                <div class="step-content">
+                  <strong>Acesse o formulário online do Défenseur des Droits</strong>
+                  <p>
+                    O site tem opção em francês. Na categoria, escolha
+                    <em>"Relations avec un service public"</em> → <em>"Étrangers"</em>.
+                  </p>
+                  <div class="link-row">
+                    <a class="action-link" href="https://www.defenseurdesdroits.fr/faire-une-reclamation" target="_blank" rel="noopener">
+                      → Fazer a reclamação online
+                    </a>
+                    <a class="action-link-secondary" href="https://www.defenseurdesdroits.fr/" target="_blank" rel="noopener">
+                      → Site oficial do Défenseur
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Preencha o formulário com esses dados</strong>
+                  <p>Tenha em mão antes de começar:</p>
+                  <ul style="font-size:0.88rem; padding-left:18px; margin-top:6px; color:var(--text);">
+                    <li>Número de referência do seu dossier ANEF</li>
+                    <li>Data de depósito do pedido</li>
+                    <li>Data de vencimento do titre atual</li>
+                    <li>Prints da messagerie com as tentativas anteriores (Nível 1)</li>
+                    <li>Cópia do récépissé ou do titre em vigor</li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Descreva o caso em francês — use este modelo</strong>
+                  <div class="template-box" style="margin-top:10px;">
+                    <div class="template-label">📋 Modelo — descrição para o Défenseur des Droits</div>
+                    <pre id="tpl-ddd">Je sollicite l'intervention du Défenseur des Droits en raison d'un dysfonctionnement grave de la plateforme ANEF (Administration Numérique pour les Étrangers en France), qui bloque le traitement de ma demande de [renouvellement / première demande] de titre de séjour depuis [NÚMERO DE MESES] mois.
+
+Ma demande, référence [NÚMERO], a été déposée le [DATA] via la plateforme ANEF. À ce jour, aucune décision n'a été rendue et mon dossier reste en statut "en cours de traitement" sans évolution.
+
+Cette situation me prive de mon droit au séjour régulier et compromet [mon emploi / mon contrat de travail / mon accès aux prestations sociales].
+
+J'ai déjà tenté :
+- Un message de relance via la messagerie ANEF le [DATA]
+- Un e-mail à la Préfecture de [DEPARTAMENTO] le [DATA]
+
+Sans réponse satisfaisante à ce jour.
+
+Le Conseil d'État, dans sa décision du 5 mai 2026, a reconnu que les délais excessifs de traitement de l'ANEF constituent une atteinte grave aux droits fondamentaux des étrangers en situation régulière. Je demande votre intervention pour qu'une décision soit rendue dans les meilleurs délais.</pre>
+                    <button class="copy-btn" onclick="copiarTexto('tpl-ddd', this)">
+                      📋 Copiar descrição
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Confirme o recebimento e guarde o número de dossier</strong>
+                  <p>
+                    Após o envio, você receberá um e-mail de confirmação com um número de
+                    dossier do Défenseur. Guarde esse número — ele é sua prova formal de
+                    que o recurso foi acionado.
+                  </p>
+                </div>
+              </li>
+            </ol>
+
+            <div class="info-card">
+              📖 Mais informações sobre seus direitos e esse recurso:
+              <a href="https://www.service-public.fr/particuliers/vosdroits/F10435" target="_blank" rel="noopener">
+                Service-Public.fr — Défenseur des Droits
+              </a>
+            </div>
+
+            <div class="warning-card">
+              <strong>⏱️ Quanto esperar:</strong> O Défenseur normalmente responde
+              em <strong>4 a 8 semanas</strong>. Se depois de 2 meses sem resultado,
+              avance para o Nível 3. Você pode acionar o Nível 3 em paralelo
+              sem precisar esperar a resolução do Nível 2.
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== NÍVEL 3 ======== -->
+        <div class="level-block lvl3">
+          <div class="level-header">
+            <div class="level-number">3</div>
+            <div class="level-header-text">
+              <h3>Carta registrada com AR ao Préfet</h3>
+              <div class="level-header-meta">
+                <span class="tag tag-green">Gratuito</span>
+                <span class="tag tag-amber">Prazo legal importante</span>
+                <span class="tag tag-blue">Cria evidência formal</span>
+              </div>
+            </div>
+          </div>
+          <div class="level-body">
+            <p>
+              Este é o recurso formal que cria <strong>validade jurídica</strong> para o
+              próximo passo — o tribunal. A carta registrada com acuse de recebimento (AR)
+              enviada ao Préfet transforma seu pedido em uma demanda administrativa oficial,
+              com prazo legal obrigatório de resposta.
+            </p>
+
+            <div class="warning-card">
+              <strong>⚠️ Atenção ao prazo:</strong> Esta carta só deve ser enviada após
+              <strong>4 meses de silêncio da administração</strong> desde o depósito do
+              dossier original. A partir do envio, o Estado tem <strong>2 meses</strong>
+              para responder. Se não responder, isso constitui um "rejet implicite" que
+              você pode contestar no tribunal.
+            </div>
+
+            <h4 style="font-size:0.92rem; font-weight:700; color:var(--navy); margin:18px 0 12px;">
+              Linha do tempo que você precisa respeitar:
+            </h4>
+
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-time">Mês 0 — Dia X</div>
+                <div class="tl-desc">Você depositou o dossier na ANEF.</div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">Meses 1–3 — Nível 1 e 2</div>
+                <div class="tl-desc">Relances pela messagerie e Défenseur des Droits.</div>
+              </div>
+              <div class="tl-item tl-alert">
+                <div class="tl-time">Mês 4 — Carta registrada (este nível)</div>
+                <div class="tl-desc">
+                  Após 4 meses sem resposta, você envia a carta registrada com AR ao Préfet.
+                  Guarde o comprovante dos Correios (La Poste) com a data.
+                </div>
+              </div>
+              <div class="tl-item tl-alert">
+                <div class="tl-time">Mês 4 + 2 meses = Mês 6 — Prazo de resposta</div>
+                <div class="tl-desc">
+                  O Estado tem 2 meses para responder após receber a carta.
+                  Sem resposta = rejet implicite (recusa implícita).
+                </div>
+              </div>
+              <div class="tl-item tl-danger">
+                <div class="tl-time">Após o mês 6 — Nível 4 (tribunal)</div>
+                <div class="tl-desc">
+                  Você pode acionar o tribunal administrativo. O rejet implicite é a
+                  base legal para o référé.
+                </div>
+              </div>
+            </div>
+
+            <h4 style="font-size:0.92rem; font-weight:700; color:var(--navy); margin:22px 0 12px;">
+              Como enviar a carta:
+            </h4>
+
+            <ol class="steps-list">
+              <li>
+                <div class="step-content">
+                  <strong>Encontre o endereço postal da sua préfecture</strong>
+                  <p>
+                    Você precisa do endereço físico do serviço de étrangers da préfecture
+                    do seu departamento.
+                  </p>
+                  <div class="link-row">
+                    <a class="action-link-secondary" href="https://lannuaire.service-public.fr/navigation/prefecture" target="_blank" rel="noopener">
+                      → Encontrar minha préfecture
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Redija a carta — use o modelo abaixo</strong>
+                  <div class="template-box" style="margin-top:10px;">
+                    <div class="template-label">📋 Modelo — Carta registrada ao Préfet</div>
+                    <pre id="tpl-prefet">[SEU NOME]
+[SEU ENDEREÇO COMPLETO]
+[CEP] [CIDADE]
+[E-MAIL]
+[TELEFONE]
+
+À l'attention de :
+Monsieur/Madame le/la Préfet(e) de [NOME DO DEPARTAMENTO]
+Service des étrangers
+[ENDEREÇO DA PRÉFECTURE]
+
+[CIDADE], le [DATA]
+
+Objet : Recours gracieux — Demande de décision sur dossier en attente depuis plus de 4 mois
+Référence dossier ANEF : [NÚMERO]
+
+Madame, Monsieur le/la Préfet(e),
+
+Par la présente, je me permets de vous adresser un recours gracieux concernant ma demande de [renouvellement / première délivrance] de titre de séjour, déposée via la plateforme ANEF le [DATA], sous la référence [NÚMERO].
+
+À ce jour, soit plus de [NÚMERO] mois après le dépôt de mon dossier, aucune décision n'a été rendue. Cette situation m'a été préjudiciable car [précisez : elle compromet mon emploi / mon accès aux allocations / ma situation régulière].
+
+J'ai tenté à plusieurs reprises de contacter vos services :
+— Messagerie ANEF : le [DATA]
+— E-mail à la préfecture : le [DATA]
+— Saisine du Défenseur des Droits : le [DATA], référence n° [NÚMERO]
+
+Sans réponse satisfaisante à ce jour.
+
+Le Conseil d'État, dans sa décision du 5 mai 2026, a formellement reconnu que les délais excessifs de traitement de l'ANEF portent atteinte aux droits fondamentaux des étrangers en attente de renouvellement.
+
+Je vous demande de bien vouloir statuer sur ma demande dans un délai de deux mois à compter de la réception de ce courrier. Sans réponse de votre part dans ce délai, je me verrai contraint(e) d'engager un recours contentieux devant le Tribunal Administratif compétent.
+
+Dans l'attente de votre décision,
+
+[ASSINATURA]
+[SEU NOME COMPLETO]
+
+Pièces jointes :
+— Copie du titre de séjour / récépissé actuel
+— Accusé de dépôt du dossier ANEF
+— Copies des relances effectuées
+— Référence de la saisine Défenseur des Droits</pre>
+                    <button class="copy-btn" onclick="copiarTexto('tpl-prefet', this)">
+                      📋 Copiar carta completa
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Envie pela La Poste — Lettre Recommandée avec AR</strong>
+                  <p>
+                    Vá a qualquer agência dos Correios (La Poste) e envie como
+                    <em>"lettre recommandée avec accusé de réception"</em>. Custa em torno de
+                    4 a 6€. Guarde o comprovante de envio e o AR quando ele chegar de volta.
+                  </p>
+                  <div class="link-row">
+                    <a class="action-link-secondary" href="https://www.laposte.fr/lettre-recommandee" target="_blank" rel="noopener">
+                      → Informações — La Poste
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Registre a data do envio e do recebimento do AR</strong>
+                  <p>
+                    O prazo de 2 meses começa a contar da data em que a préfecture
+                    recebeu a carta (indicada no AR), não da data do envio.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- ======== NÍVEL 4 ======== -->
+        <div class="level-block lvl4">
+          <div class="level-header">
+            <div class="level-number">4</div>
+            <div class="level-header-text">
+              <h3>Référé mesures utiles — Tribunal Administratif</h3>
+              <div class="level-header-meta">
+                <span class="tag tag-red">Via judicial</span>
+                <span class="tag tag-amber">Urgência reconhecida automaticamente</span>
+                <span class="tag tag-blue">~70% de sucesso</span>
+              </div>
+            </div>
+          </div>
+          <div class="level-body">
+            <p>
+              O <em>référé mesures utiles</em> é um procedimento de urgência no Tribunal
+              Administratif — o equivalente a um "pedido de medida cautelar" no direito
+              brasileiro. Ele força a administração a agir sem esperar o processo principal.
+            </p>
+
+            <p>
+              Para casos de renovação de titre de séjour bloqueada pela ANEF, a urgência
+              é <strong>reconhecida automaticamente pelos tribunais</strong> — não é preciso
+              provar que é urgente. A taxa de sucesso gira em torno de 70%, especialmente
+              após a decisão do Conseil d'État de maio de 2026.
+            </p>
+
+            <div class="info-card">
+              <strong>💡 Você precisa de advogado?</strong> Não obrigatoriamente para o
+              référé — você pode se representar (se défendre soi-même). Mas para este nível,
+              é altamente recomendável consultar pelo menos uma vez com um jurista ou
+              associação de ajuda aos imigrantes, especialmente para redigir a requête corretamente.
+            </div>
+
+            <h4 style="font-size:0.92rem; font-weight:700; color:var(--navy); margin:18px 0 12px;">
+              Passo a passo:
+            </h4>
+
+            <ol class="steps-list">
+              <li>
+                <div class="step-content">
+                  <strong>Identifique o tribunal administratif competente</strong>
+                  <p>
+                    É o tribunal do departamento onde você reside. O site oficial tem
+                    um buscador por código postal.
+                  </p>
+                  <div class="link-row">
+                    <a class="action-link" href="https://www.conseil-etat.fr/tribunaux-cours/ou-s-adresser" target="_blank" rel="noopener">
+                      → Encontrar meu tribunal
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Prepare o dossiê de prova — você vai precisar de tudo isso</strong>
+                  <ul style="font-size:0.88rem; padding-left:18px; margin-top:6px; color:var(--text);">
+                    <li>Comprovante de depósito do dossier na ANEF (data + número de referência)</li>
+                    <li>Prints do status atual ("en cours de traitement" sem evolução)</li>
+                    <li>Cópia do titre de séjour vencido ou do récépissé</li>
+                    <li>Registros de todas as relances (messagerie + e-mails)</li>
+                    <li>Comprovante de saisine do Défenseur des Droits (Nível 2)</li>
+                    <li>Carta registrada ao Préfet + AR (Nível 3) + comprovante de que 2 meses se passaram sem resposta</li>
+                    <li>Documentos que comprovem o prejuízo: contrato de trabalho, ficha de pague, documentação de alocações, etc.</li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Deposite a requête en référé mesures utiles</strong>
+                  <p>
+                    Pode ser feito presencialmente no tribunal ou, em alguns casos, pelo
+                    sistema Télérecours (para advogados). O formulário de requête deve
+                    incluir o fundamento jurídico e o pedido específico.
+                  </p>
+                  <div class="link-row">
+                    <a class="action-link-secondary" href="https://www.service-public.fr/particuliers/vosdroits/F10443" target="_blank" rel="noopener">
+                      → Service-Public: Référé administratif
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="step-content">
+                  <strong>Consulte antes com uma associação de apoio jurídico gratuito</strong>
+                  <p>
+                    Antes de ir ao tribunal, recomendo fortemente uma consulta gratuita.
+                    As associações abaixo atuam especificamente com dossiers de imigração:
+                  </p>
+                  <div class="link-row">
+                    <a class="action-link-secondary" href="https://www.gisti.org/" target="_blank" rel="noopener">
+                      → GISTI — Groupe d'information et de soutien des immigrés
+                    </a>
+                  </div>
+                  <div class="link-row">
+                    <a class="action-link-secondary" href="https://www.lacimade.org/" target="_blank" rel="noopener">
+                      → La Cimade — Aide aux étrangers
+                    </a>
+                  </div>
+                  <div class="link-row">
+                    <a class="action-link-secondary" href="https://www.aide-juridictionnelle.justice.fr/" target="_blank" rel="noopener">
+                      → Aide Juridictionnelle (suporte jurídico gratuito ou subsidiado)
+                    </a>
+                  </div>
+                </div>
+              </li>
+            </ol>
+
+            <div class="warning-card">
+              <strong>📌 Lembrete estratégico:</strong> O référé não substitui o processo
+              principal (recours au fond). Ele força a administração a agir urgentemente.
+              Muitas pessoas conseguem a regularização ainda na fase do référé — o Estado
+              regulariza o dossier antes mesmo da audiência para evitar a condenação.
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- SEÇÃO 3: RESUMO RÁPIDO DOS PRAZOS -->
+      <section class="section">
+        <h2 class="section-title">Resumo dos prazos — o que fazer e quando</h2>
+        <p class="section-lead">Guia rápido para não perder nenhuma janela de recurso</p>
+
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-time">Agora — Semana 1</div>
+            <div class="tl-desc">
+              <strong>Nível 1:</strong> Envie a mensagem de relance pela messagerie da ANEF
+              e o e-mail para a préfecture. Guarde prints com data e hora.
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-time">Semanas 3–4 (sem resposta)</div>
+            <div class="tl-desc">
+              <strong>Nível 2:</strong> Acione o Défenseur des Droits online. Processo
+              leva 4–8 semanas. Pode ser feito em paralelo com o Nível 3.
+            </div>
+          </div>
+          <div class="tl-item tl-alert">
+            <div class="tl-time">Mês 4 (após o depósito do dossier)</div>
+            <div class="tl-desc">
+              <strong>Nível 3:</strong> Envio da carta registrada com AR ao Préfet.
+              <em>Esta data é um gatilho legal — não a ignore.</em>
+            </div>
+          </div>
+          <div class="tl-item tl-alert">
+            <div class="tl-time">Mês 4 + 2 meses sem resposta</div>
+            <div class="tl-desc">
+              Silêncio da préfecture = rejet implicite. A partir daqui,
+              você tem 2 meses adicionais para contestar no tribunal.
+            </div>
+          </div>
+          <div class="tl-item tl-danger">
+            <div class="tl-time">Meses 6–8 (último recurso)</div>
+            <div class="tl-desc">
+              <strong>Nível 4:</strong> Référé mesures utiles no tribunal administratif.
+              Urgência reconhecida automaticamente. ~70% de sucesso.
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card" style="margin-top:24px;">
+          💡 <strong>Dica:</strong> Não espere terminar um nível para começar o próximo.
+          Os Níveis 2 e 3 podem — e devem — ser acionados em paralelo. O que importa
+          é ter registro escrito de cada tentativa antes de ir ao tribunal.
+        </div>
+      </section>
+
+    </div><!-- /.wrapper -->
+  </main>
+
+  <!-- ==========================================
+       FORMULÁRIO DE CAPTURA
+  ========================================== -->
+  <div class="form-section">
+    <div class="wrapper">
+      <div class="form-card">
+        <div id="form-wrapper">
+          <div class="form-eyebrow">Newsletter Por Dentro</div>
+          <h2>Quer continuar acompanhando o caso ANEF e outras novidades sobre imigração na França?</h2>
+          <p class="form-sub">
+            Eu envio atualizações quando o caso evoluir, novos recursos, e conteúdo
+            prático sobre vida real na França — sem spam, sem sensacionalismo.
+          </p>
+
+          <!--
+            INTEGRAÇÃO: Substitua action="#" pela URL do Brevo/Mailchimp.
+            Adicione campos ocultos necessários para o seu provedor.
+            Remova o e.preventDefault() no JS quando o backend estiver configurado.
+          -->
+          <form id="lead-form" action="#" method="POST" novalidate>
+            <div class="form-row">
+              <div class="form-group" id="group-name">
+                <label for="first-name">Primeiro nome</label>
+                <input type="text" id="first-name" name="FNAME"
+                  placeholder="Ex: Ana" autocomplete="given-name" />
+                <div class="error-msg">Insira seu primeiro nome.</div>
+              </div>
+              <div class="form-group" id="group-email">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="EMAIL"
+                  placeholder="seu@email.com" autocomplete="email" />
+                <div class="error-msg">Insira um e-mail válido.</div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              Quero receber atualizações →
+            </button>
+            <p class="form-disclaimer">
+              Gratuito. Sem spam. Você pode cancelar quando quiser.
+            </p>
+          </form>
+        </div>
+
+        <!-- Confirmação pós-envio -->
+        <div id="confirmation">
+          <div class="check-icon">✅</div>
+          <h3>Perfeito! Você está na lista.</h3>
+          <p>
+            Vou te avisar quando o caso ANEF tiver novidades.<br>
+            Verifique também a pasta de spam na primeira mensagem.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       RODAPÉ
+  ========================================== -->
+  <footer>
+    <div class="wrapper">
+      <div class="footer-brand">Por Dentro · Ingryd Lotierzo</div>
+      <div class="footer-links">
+        <a href="https://www.instagram.com/ingrydinparis/" target="_blank" rel="noopener">Instagram @ingrydinparis</a>
+        <span class="footer-sep">·</span>
+        <a href="https://www.youtube.com/@ingrydlotierzo" target="_blank" rel="noopener">YouTube</a>
+      </div>
+      <p class="footer-disclaimer">
+        Este conteúdo é informativo e foi elaborado com base em fontes públicas e na decisão
+        do Conseil d'État de 5 de maio de 2026. Não substitui aconselhamento jurídico profissional.
+        Para situações complexas, consulte um advogado especializado em direito dos estrangeiros.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       JAVASCRIPT
+  ========================================== -->
+  <script>
+    // --- Barra de progresso de leitura ---
+    window.addEventListener('scroll', function () {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      document.getElementById('progress-bar').style.width = pct + '%';
+    });
+
+    // --- Copiar texto dos modelos ---
+    function copiarTexto(id, btn) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText).then(function () {
+        btn.textContent = '✅ Copiado!';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = '📋 Copiar';
+          btn.classList.remove('copied');
+        }, 2500);
+      }).catch(function () {
+        // Fallback para navegadores sem clipboard API
+        const range = document.createRange();
+        range.selectNode(el);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        btn.textContent = '✅ Copiado!';
+        setTimeout(function () { btn.textContent = '📋 Copiar'; }, 2500);
+      });
+    }
+
+    // --- Formulário: validação e confirmação ---
+    (function () {
+      var form        = document.getElementById('lead-form');
+      var formWrapper = document.getElementById('form-wrapper');
+      var confirmation = document.getElementById('confirmation');
+      var nameInput   = document.getElementById('first-name');
+      var emailInput  = document.getElementById('email');
+      var groupName   = document.getElementById('group-name');
+      var groupEmail  = document.getElementById('group-email');
+
+      function isValidEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+      }
+
+      nameInput.addEventListener('input',  function () { groupName.classList.remove('has-error'); });
+      emailInput.addEventListener('input', function () { groupEmail.classList.remove('has-error'); });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault(); // ← Remova ao integrar com backend
+
+        var valid = true;
+        if (nameInput.value.trim() === '') {
+          groupName.classList.add('has-error'); valid = false;
+        }
+        if (!isValidEmail(emailInput.value)) {
+          groupEmail.classList.add('has-error'); valid = false;
+        }
+        if (!valid) return;
+
+        /*
+          INTEGRAÇÃO FUTURA — exemplo Brevo:
+          fetch('https://api.brevo.com/v3/contacts', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'api-key': 'SUA_API_KEY'
+            },
+            body: JSON.stringify({
+              email: emailInput.value.trim(),
+              attributes: { FIRSTNAME: nameInput.value.trim() },
+              listIds: [ID_DA_LISTA],
+              updateEnabled: true
+            })
+          }).then(function() { showConfirmation(); });
+        */
+
+        showConfirmation();
+      });
+
+      function showConfirmation() {
+        formWrapper.style.display = 'none';
+        confirmation.style.display = 'block';
+        confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    })();
+  </script>
+
+</body>
+</html>
